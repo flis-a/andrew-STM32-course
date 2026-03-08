@@ -7,7 +7,9 @@
 
 #include "stm32f407xx_gpio_driver.h"
 
-// Peripheral Clock Setup
+/*
+ * Peripheral Clock Setup
+ */
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
 	if(EnorDi  == ENABLE)
@@ -67,7 +69,9 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 	}
 }
 
-// Init & De-init
+/*
+ *  Initialize GPIO
+ */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
 	uint32_t temp = 0;
@@ -117,37 +121,102 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 
 
 }
+
+/*
+ *  De-initialize GPIO
+ */
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
-
+	if(pGPIOx == GPIOA)
+	{
+		GPIOA_REG_RESET();
+	}else if(pGPIOx == GPIOB)
+	{
+		GPIOB_REG_RESET();
+	}else if(pGPIOx == GPIOC)
+	{
+		GPIOC_REG_RESET();
+	}else if(pGPIOx == GPIOD)
+	{
+		GPIOD_REG_RESET();
+	}else if(pGPIOx == GPIOE)
+	{
+		GPIOE_REG_RESET();
+	}else if(pGPIOx == GPIOF)
+	{
+		GPIOF_REG_RESET();
+	}else if(pGPIOx == GPIOG)
+	{
+		GPIOG_REG_RESET();
+	}else if(pGPIOx == GPIOH)
+	{
+		GPIOH_REG_RESET();
+	}
 }
 
-// Data Read & Write
+/*
+ *  Read GPIO Pin
+ */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-
+	uint8_t value;
+	value = (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x00000001 );
+	return value;
 }
+
+/*
+ *  Read GPIO Port
+ */
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
-
+	uint16_t value;
+	value = (uint16_t)pGPIOx->IDR;
+	return value;
 }
+
+/*
+ *  Write to GPIO Pin
+ */
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value)
 {
+	if(Value == GPIO_PIN_SET)
+	{
+		// Write 1 to output data register
+		pGPIOx->ODR |= ( 1 << PinNumber);
 
+	}else
+	{
+		// Write 0
+		pGPIOx->ODR &= ~( 1 << PinNumber);
+	}
 }
+
+/*
+ *  Write to GPIO Port
+ */
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value)
 {
-
+	pGPIOx-> ODR = Value;
 }
-void GPIO_ToggleOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
+
+/*
+ *  Toggle GPIO Pin
+ */
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-
+	pGPIOx-> ODR ^= (1 << PinNumber);
 }
 
-// IRQ Config & ISR Handling
+/*
+ * 	IRQ Config
+ */
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi){
 
 }
+
+/*
+ *  Toggle GPIO Pin
+ */
 void GPIO_IRQCHandling(uint8_t PinNumber)
 {
 
