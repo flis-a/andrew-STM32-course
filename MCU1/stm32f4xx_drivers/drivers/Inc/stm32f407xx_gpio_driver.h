@@ -76,8 +76,8 @@ typedef struct
  */
 #define GPIO_SPEED_LOW			0
 #define GPIO_SPEED_MEDIUM		1
-#define GPIO_MODE_FAST			2
-#define GPIO_MODE_HIGH			3
+#define GPIO_SPEED_FAST			2
+#define GPIO_SPEED_HIGH			3
 
 /*
  * GPIO Output Speeds
@@ -102,7 +102,7 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value);
-void GPIO_ToggleOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 // IRQ Config & ISR Handling
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi);

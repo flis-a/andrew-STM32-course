@@ -215,7 +215,7 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi){
 }
 
 /*
- *  Toggle GPIO Pin
+ *
  */
 void GPIO_IRQCHandling(uint8_t PinNumber)
 {
