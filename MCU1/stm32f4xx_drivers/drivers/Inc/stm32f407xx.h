@@ -29,6 +29,16 @@
 #define NVIC_ICER2			((__vo uint32_t*)0xE000E188)
 #define NVIC_ICER3			((__vo uint32_t*)0xE000E18C)
 
+/*
+ * ARM Cortex Mx Processor Priority Register Address Calculation
+ */
+#define NVIC_PR_BASE_ADDR	((__vo uint32_t*)0xE000E400)
+
+/*
+ * ARM Cortex Mx Processor number of priority bits implemented in the Priority Register
+ */
+#define NO_PR_BITS_IMPLEMENTED		4
+
 //*********************************END: Processor Specific Details************************************************
 
 /*
@@ -162,7 +172,7 @@ typedef struct
 	__vo uint32_t RTSR;		//0x08
 	__vo uint32_t FTSR;		//0x0C
 	__vo uint32_t SWIER;	//0x10
-	__vo uint32_t ODPRR;	//0x14
+	__vo uint32_t PR;		//0x14
 
 }EXTI_RegDef_t;
 
@@ -327,6 +337,12 @@ typedef struct
 #define IRQ_NO_EXTI4		10
 #define IRQ_NO_EXTI9_5		23
 #define IRQ_NO_EXTI15_10	40
+
+/*
+ * macros for priority levels
+ */
+#define NVIC_IRQ_PRI0    0
+#define NVIC_IRQ_PRI15    15
 
 /*
  * Generic Macros
